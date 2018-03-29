@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 
+/*
 class Foo {
 public:
     Foo() {
@@ -26,6 +27,7 @@ void* Foo::operator new(size_t size) {
 void Foo::operator delete(void* p) {
     mp.free(p);
 }
+*/
 
 int main() {
     /*
@@ -44,18 +46,18 @@ int main() {
     Mempool<4> m;
     int *p[5] = { 0 };
     for (int i = 0; i < 5; ++i) {
-        p[i] = (int*)mp.alloc();
+        p[i] = (int*)m.alloc();
         printf("p%d = %p, *p%d = %08x\n", i, p[i], i, *p[i]);
     }
 
     for (int i = 0; i < 5; ++i) {
-        mp.free(p[i]);
+        m.free(p[i]);
     }
 
     puts("----------------------------");
 
     for (int i = 0; i < 5; ++i) {
-        p[i] = (int*)mp.alloc();
+        p[i] = (int*)m.alloc();
         printf("p%d = %p, *p%d = %08x\n", i, p[i], i, *p[i]);
     }
     return 0;

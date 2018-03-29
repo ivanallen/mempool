@@ -1,4 +1,4 @@
-
+#include <stdio.h>
 #define OBJECT_NUM 3 
 
 template<int OBJECT_SIZE>
@@ -17,6 +17,7 @@ public:
     ~Mempool() {
         MemBlock *nextBlock;
         while(memBlockHeader) {
+            printf("free block: %p\n", memBlockHeader);
             nextBlock = memBlockHeader->next;
             delete(memBlockHeader);
             memBlockHeader = nextBlock;
@@ -25,12 +26,14 @@ public:
     void *alloc() {
         if (freeNodeHeader == nullptr) {
             MemBlock *newBlock = new MemBlock;
+            printf("malloc block: %p\n", newBlock);
             newBlock->data[0].next = nullptr;
             for (int i = 1; i < OBJECT_NUM; ++i) {
                 newBlock->data[i].next = &newBlock->data[i - 1];
             }
             freeNodeHeader = &newBlock->data[OBJECT_NUM - 1];
             newBlock->next = memBlockHeader;
+            memBlockHeader = newBlock;
         }
         void *freeNode = freeNodeHeader; 
         freeNodeHeader = freeNodeHeader->next;
