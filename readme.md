@@ -2,6 +2,7 @@
 
 ## 结构
 
+```
 memBlockHeader -> |   next   | -----> |   next   | ----------> null
                   |  memNode |     .->|  memNode | -> null
                   |  memNode |     `--|  memNode | <-.
@@ -11,12 +12,16 @@ memBlockHeader -> |   next   | -----> |   next   | ----------> null
                                  / 
                                 |
 freeNodeHeader -----------------'
+```
 
 
+```
 memNode 
 
 |   next  |
 |   data  |
+```
+
 
 ## 说明
 
